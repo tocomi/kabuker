@@ -1,8 +1,8 @@
 <template>
   <div class="daily-bell">
     <span class="daily-bell__date">{{ date }}</span>
-    <bell-input :is-am="true" />
-    <bell-input :is-am="false" />
+    <bell-input :is-am="true" :price="amPrice" />
+    <bell-input :is-am="false" :price="pmPrice" />
   </div>
 </template>
 
@@ -18,6 +18,19 @@ export default {
       type: String,
       required: true,
       default: '???',
+    },
+    price: {
+      type: undefined,
+      required: true,
+      default: {},
+    },
+  },
+  computed: {
+    amPrice() {
+      return this.price.am ? String(this.price.am) : '';
+    },
+    pmPrice() {
+      return this.price.pm ? String(this.price.pm) : '';
     },
   },
 };

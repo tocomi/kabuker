@@ -1,8 +1,8 @@
 <template>
   <div class="index">
-    <template v-for="weekDay in weekDays">
-      <div :key="weekDay" class="index__daily-bell">
-        <daily-bell :date="weekDay" />
+    <template v-for="dailyPrice in dailyPrices">
+      <div :key="dailyPrice.date" class="index__daily-bell">
+        <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" />
       </div>
     </template>
   </div>
@@ -18,17 +18,27 @@ export default {
   },
   data() {
     return {
+      userName: '',
       baseDate: '',
-      weekDays: [],
+      dailyPrices: [],
     };
   },
-  created() {
-    // const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
-    // const doc = await await docRef.get();
-    // console.log(doc.data());
+  async created() {
+    const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
+    const doc = await docRef.get();
+    const prices = doc.data().prices;
+    this.userName = doc.data().userName;
+
     const weekDays = getWeekDays();
     this.baseDate = weekDays[0];
     this.weekDays = weekDays.slice(1, 7);
+
+    for (let i = 0; i < this.weekDays.length; i++) {
+      this.dailyPrices.push({
+        date: this.weekDays[i],
+        price: prices[i],
+      });
+    }
   },
 };
 </script>

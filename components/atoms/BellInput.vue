@@ -1,7 +1,7 @@
 <template>
   <div class="bell-input">
     <span class="bell-input__time">{{ timeText }}</span>
-    <input class="bell-input__inner" type="number" min="0" max="999">
+    <input v-model="inputPrice" class="bell-input__inner" type="number" min="0" max="999">
     <span class="bell-input__badge">ベル</span>
   </div>
 </template>
@@ -14,6 +14,16 @@ export default {
       required: true,
       default: true,
     },
+    price: {
+      type: String,
+      required: true,
+      default: '',
+    },
+  },
+  data() {
+    return {
+      inputPrice: '',
+    };
   },
   computed: {
     timeText() {
@@ -22,6 +32,9 @@ export default {
       }
       return 'PM';
     },
+  },
+  created() {
+    this.inputPrice = this.price;
   },
 };
 </script>
