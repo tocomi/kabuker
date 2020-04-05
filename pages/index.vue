@@ -1,62 +1,35 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        kabuker
-      </h1>
-      <h2 class="subtitle">
-        atumori!!
-      </h2>
-      <div class="links">
-        <nuxt-link
-          to="list"
-          class="button--green"
-        >
-          Documentation
-        </nuxt-link>
-      </div>
-    </div>
+  <div class="list">
+    <logo />
+    <bell-input />
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue';
+import BellInput from '~/components/atoms/BellInput.vue';
 
 export default {
   components: {
     Logo,
+    BellInput,
+  },
+  data() {
+    return {
+      am: 0,
+      pm: 0,
+    };
+  },
+  async created() {
+    const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
+    const doc = await await docRef.get();
+    console.log(doc.data());
+    this.am = doc.data().prices[0].am;
+    this.pm = doc.data().prices[0].pm;
   },
 };
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="scss" scoped>
 
-.title {
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
