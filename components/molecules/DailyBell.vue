@@ -1,0 +1,52 @@
+<template>
+  <div class="daily-bell">
+    <span class="daily-bell__date">{{ date }}</span>
+    <bell-input :is-am="true" />
+    <bell-input :is-am="false" />
+  </div>
+</template>
+
+<script>
+import BellInput from '~/components/atoms/BellInput.vue';
+
+export default {
+  components: {
+    BellInput,
+  },
+  props: {
+    date: {
+      type: String,
+      required: true,
+      default: '???',
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.daily-bell {
+  align-items: center;
+  background-color: #f1e6d5;
+  border-radius: 8px;
+  display: flex;
+  height: 88px;
+  justify-content: space-around;
+  margin: 0 auto;
+  position: relative;
+  width: 90%;
+
+  &__date {
+    background-color: #f09d05;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    height: 20px;
+    left: -8px;
+    position: absolute;
+    text-align: center;
+    transform: rotate(-4deg);
+    top: -8px;
+    width: 100px;
+  }
+}
+</style>

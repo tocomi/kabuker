@@ -1,18 +1,23 @@
 <template>
-  <div class="list">
+  <div class="index">
     <logo />
-    <bell-input />
+    <div class="index__daily-bell">
+      <daily-bell />
+    </div>
+    <div class="index__daily-bell">
+      <daily-bell />
+    </div>
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue';
-import BellInput from '~/components/atoms/BellInput.vue';
+import DailyBell from '~/components/molecules/DailyBell.vue';
 
 export default {
   components: {
     Logo,
-    BellInput,
+    DailyBell,
   },
   data() {
     return {
@@ -31,5 +36,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.index {
+  .daily-bell {
+    margin-top: 16px;
+  }
+}
 </style>

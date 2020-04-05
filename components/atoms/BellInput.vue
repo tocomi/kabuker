@@ -1,9 +1,30 @@
 <template>
   <div class="bell-input">
+    <span class="bell-input__time">{{ timeText }}</span>
     <input class="bell-input__inner" type="number" min="0" max="999">
     <span class="bell-input__badge">ベル</span>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    isAm: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+  },
+  computed: {
+    timeText() {
+      if (this.isAm) {
+        return 'AM';
+      }
+      return 'PM';
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 $bg-color: #edc453;
@@ -19,6 +40,20 @@ $font-color: #fcf6e5;
   justify-content: center;
   position: relative;
   width: 100px;
+
+  &__time {
+    background-color: $bg-color;
+    border: solid 2px $font-color;
+    border-radius: 10px;
+    color: $font-color;
+    font-size: 12px;
+    height: 20px;
+    left: -6px;
+    position: absolute;
+    text-align: center;
+    top: -6px;
+    width: 40px;
+  }
 
   &__inner {
     background-color: $bg-color;
