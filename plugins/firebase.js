@@ -14,5 +14,6 @@ export default (context, inject) => {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }
-  inject('firebase', firebase);
+  inject('firestore', firebase.firestore());
+  inject('auth', firebase.auth);
 };
