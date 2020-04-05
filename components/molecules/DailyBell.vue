@@ -33,7 +33,6 @@ export default {
   justify-content: space-around;
   margin: 0 auto;
   position: relative;
-  width: 90%;
 
   &__date {
     background-color: #f09d05;

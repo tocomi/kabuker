@@ -1,42 +1,44 @@
 <template>
   <div class="index">
-    <logo />
-    <div class="index__daily-bell">
-      <daily-bell />
-    </div>
-    <div class="index__daily-bell">
-      <daily-bell />
-    </div>
+    <template v-for="weekDay in weekDays">
+      <div :key="weekDay" class="index__daily-bell">
+        <daily-bell :date="weekDay" />
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue';
 import DailyBell from '~/components/molecules/DailyBell.vue';
+import { getWeekDays } from '~/domains/date/DateUtil';
 
 export default {
   components: {
-    Logo,
     DailyBell,
   },
   data() {
     return {
-      am: 0,
-      pm: 0,
+      baseDate: '',
+      weekDays: [],
     };
   },
-  async created() {
-    const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
-    const doc = await await docRef.get();
-    console.log(doc.data());
-    this.am = doc.data().prices[0].am;
-    this.pm = doc.data().prices[0].pm;
+  created() {
+    // const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
+    // const doc = await await docRef.get();
+    // console.log(doc.data());
+    const weekDays = getWeekDays();
+    this.baseDate = weekDays[0];
+    this.weekDays = weekDays.slice(1, 7);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .index {
+  padding: 48px 6vw;
+  margin: 0 auto;
+  max-width: 536px;
+
   .daily-bell {
     margin-top: 16px;
   }
