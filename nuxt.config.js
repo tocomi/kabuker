@@ -38,6 +38,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
+    'nuxt-webfontloader',
   ],
   /*
   ** Axios module configuration
@@ -53,6 +54,13 @@ export default {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+    },
+  },
+  webfontloader: {
+    google: {
+      families: [
+        'M+PLUS+Rounded+1c',
+      ],
     },
   },
 };

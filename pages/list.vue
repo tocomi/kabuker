@@ -1,17 +1,18 @@
 <template>
   <div class="list">
     <logo />
-    <input v-model="am" />
-    <input v-model="pm" />
+    <bell-input />
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue';
+import BellInput from '~/components/BellInput.vue';
 
 export default {
   components: {
     Logo,
+    BellInput,
   },
   data() {
     return {
