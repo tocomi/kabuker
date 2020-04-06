@@ -1,9 +1,11 @@
 <template>
-  <div v-if="isShown" class="snackbar-wrapper">
-    <div :class="barClass" class="snackbar">
-      {{ message }}
+  <transition name="slide">
+    <div v-if="isShown" class="snackbar-wrapper">
+      <div :class="barClass" class="snackbar">
+        {{ message }}
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -63,5 +65,15 @@ export default {
       background-color: #f2601d;
     }
   }
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: transform .5s
+}
+.slide-enter {
+  transform: translateX(300px)
+}
+.slide-leave-active {
+  transform: translateX(-300px);
 }
 </style>

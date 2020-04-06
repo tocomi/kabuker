@@ -69,7 +69,7 @@ export default {
           this.showSnackbar = true;
           setTimeout(() => {
             this.showSnackbar = false;
-          }, 2000);
+          }, 3000);
         })
         .catch((e) => {
           console.error(e);
@@ -78,7 +78,7 @@ export default {
           this.showSnackbar = true;
           setTimeout(() => {
             this.showSnackbar = false;
-          }, 2000);
+          }, 3000);
         });
     },
     onChange(value, isAm, date) {
