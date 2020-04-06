@@ -1,6 +1,8 @@
 <template>
   <div class="bell-input">
-    <span class="bell-input__time">{{ timeText }}</span>
+    <div class="bell-input__time">
+      <span>{{ timeText }}</span>
+    </div>
     <input
       v-model="inputPrice"
       @input="onChange"
@@ -9,7 +11,9 @@
       min="0"
       max="999"
     >
-    <span class="bell-input__badge">ベル</span>
+    <div class="bell-input__badge">
+      <span>ベル</span>
+    </div>
   </div>
 </template>
 
@@ -70,12 +74,15 @@ $font-color: #fcf6e5;
   width: 100px;
 
   &__time {
+    align-items: center;
     background-color: $bg-color;
     border: solid 2px $font-color;
     border-radius: 10px;
     color: $font-color;
+    display: flex;
     font-size: 12px;
     height: 20px;
+    justify-content: center;
     left: -6px;
     position: absolute;
     text-align: center;
@@ -92,17 +99,20 @@ $font-color: #fcf6e5;
     font-weight: bold;
     outline: none;
     text-align: center;
-    width: 60px;
+    width: 64px;
     -webkit-appearance: none;
   }
 
   &__badge {
+    align-items: center;
     bottom: -10px;
     background-color: $font-color;
     border-radius: 10px;
     color: $bg-color;
+    display: flex;
     font-size: 14px;
     font-weight: bold;
+    justify-content: center;
     height: 20px;
     position: absolute;
     right: -5px;
