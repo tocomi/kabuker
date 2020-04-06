@@ -1,12 +1,15 @@
 <template>
-  <div class="index">
-    <template v-for="dailyPrice in dailyPrices">
-      <div :key="dailyPrice.date" class="index__daily-bell">
-        <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
+  <div class="index-wrapper">
+    <snackbar :is-shown="showSnackbar" :message="snackbarMessage" :level="snackbarLevel" />
+    <div class="index">
+      <template v-for="dailyPrice in dailyPrices">
+        <div :key="dailyPrice.date" class="index__daily-bell">
+          <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
+        </div>
+      </template>
+      <div class="index__submit">
+        <float-button @onClick="save" />
       </div>
-    </template>
-    <div class="index__submit">
-      <float-button @onClick="save" />
     </div>
   </div>
 </template>
@@ -14,18 +17,24 @@
 <script>
 import DailyBell from '~/components/molecules/DailyBell.vue';
 import FloatButton from '~/components/atoms/FloatButton.vue';
+import Snackbar from '~/components/atoms/Snackbar.vue';
 import { getWeekDays } from '~/domains/date/DateUtil';
 
 export default {
   components: {
     DailyBell,
     FloatButton,
+    Snackbar,
   },
   data() {
     return {
       userName: '',
       baseDate: '',
       dailyPrices: [],
+      // Snackbar
+      showSnackbar: false,
+      snackbarMessage: '',
+      snackbarLevel: 'INFO',
     };
   },
   async created() {
@@ -55,10 +64,21 @@ export default {
         prices: this.dailyPrices,
       }, { merge: true })
         .then(() => {
-          console.log('success');
+          this.snackbarMessage = '保存しただなも！';
+          this.snackbarLevel = 'INFO';
+          this.showSnackbar = true;
+          setTimeout(() => {
+            this.showSnackbar = false;
+          }, 2000);
         })
         .catch((e) => {
           console.error(e);
+          this.snackbarMessage = 'うまくいかなかっただなも…';
+          this.snackbarLevel = 'ERROR';
+          this.showSnackbar = true;
+          setTimeout(() => {
+            this.showSnackbar = false;
+          }, 2000);
         });
     },
     onChange(value, isAm, date) {
