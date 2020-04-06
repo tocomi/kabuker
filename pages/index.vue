@@ -18,7 +18,18 @@
 import DailyBell from '~/components/molecules/DailyBell.vue';
 import FloatButton from '~/components/atoms/FloatButton.vue';
 import Snackbar from '~/components/atoms/Snackbar.vue';
-import { getWeekDays } from '~/domains/date/DateUtil';
+import { getWeekDays, getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
+
+const emptyPrices = () => {
+  return [1, 2, 3, 4, 5, 6].map(() => {
+    return {
+      price: {
+        am: 0,
+        pm: 0,
+      },
+    };
+  });
+};
 
 export default {
   components: {
@@ -37,16 +48,21 @@ export default {
       snackbarLevel: 'INFO',
     };
   },
+  computed: {
+    collectionName() {
+      const YYYYMMDD = getBaseSundayYYYYMMDD();
+      return `prices${YYYYMMDD}`;
+    },
+  },
   async created() {
     await this.load();
   },
   methods: {
     async load() {
-      const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
+      const docRef = this.$firestore.collection(this.collectionName).doc('nUWb6VPU20z8k4ftTS6D');
       const doc = await docRef.get();
-      const prices = doc.data().prices;
-      console.log(prices);
-      this.userName = doc.data().userName;
+      const prices = doc.data() ? doc.data().prices : emptyPrices();
+      this.userName = doc.data() ? doc.data().userName : '';
 
       const weekDays = getWeekDays();
       this.baseDate = weekDays[0];
@@ -60,7 +76,8 @@ export default {
       }
     },
     async save() {
-      await this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D').set({
+      await this.$firestore.collection(this.collectionName).doc('nUWb6VPU20z8k4ftTS6D').set({
+        userName: this.userName,
         prices: this.dailyPrices,
       }, { merge: true })
         .then(() => {

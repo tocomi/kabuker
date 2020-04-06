@@ -16,3 +16,9 @@ export const getWeekDays = () => {
   }
   return weekDays;
 };
+
+export const getBaseSundayYYYYMMDD = () => {
+  const now = dayjs();
+  const baseSunday = now.add(-now.day(), 'days');
+  return baseSunday.format('YYYYMMDD');
+};
