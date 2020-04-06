@@ -2,7 +2,7 @@
   <transition name="slide">
     <div v-if="isShown" class="snackbar-wrapper">
       <div :class="barClass" class="snackbar">
-        {{ message }}
+        <span>{{ message }}</span>
       </div>
     </div>
   </transition>
