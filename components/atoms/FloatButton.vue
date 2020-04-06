@@ -1,0 +1,40 @@
+<template>
+  <div class="button-wrapper">
+    <button @click="click" class="button">
+      save
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    click() {
+      this.$emit('onClick');
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.button-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  text-align: center;
+
+  .button {
+    background-color: #23cdda;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 2px 2px 3px #999;
+    color: #fffafa;
+    font-family: 'M PLUS Rounded 1c';
+    font-size: 18px;
+    font-weight: bold;
+    height: 60px;
+    outline: none;
+    width: 60px;
+  }
+}
+</style>

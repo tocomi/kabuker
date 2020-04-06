@@ -5,16 +5,21 @@
         <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" />
       </div>
     </template>
+    <div class="index__submit">
+      <float-button @onClick="save" />
+    </div>
   </div>
 </template>
 
 <script>
 import DailyBell from '~/components/molecules/DailyBell.vue';
+import FloatButton from '~/components/atoms/FloatButton.vue';
 import { getWeekDays } from '~/domains/date/DateUtil';
 
 export default {
   components: {
     DailyBell,
+    FloatButton,
   },
   data() {
     return {
@@ -40,6 +45,11 @@ export default {
       });
     }
   },
+  methods: {
+    save() {
+      console.log('save');
+    },
+  },
 };
 </script>
 
@@ -49,8 +59,12 @@ export default {
   margin: 0 auto;
   max-width: 536px;
 
-  .daily-bell {
+  &__daily-bell {
     margin-top: 16px;
+  }
+
+  &__submit {
+    margin-top: 24px;
   }
 }
 </style>
