@@ -1,6 +1,8 @@
 <template>
   <div class="daily-bell">
-    <span class="daily-bell__date">{{ date }}</span>
+    <div class="daily-bell__date">
+      <span>{{ date }}</span>
+    </div>
     <bell-input :is-am="true" :price="amPrice" @onChange="onChange" />
     <bell-input :is-am="false" :price="pmPrice" @onChange="onChange" />
   </div>
@@ -53,11 +55,14 @@ export default {
   position: relative;
 
   &__date {
+    align-items: center;
     background-color: #f09d05;
     border-radius: 8px;
     color: white;
+    display: flex;
     font-size: 14px;
-    height: 20px;
+    height: 24px;
+    justify-content: center;
     left: -8px;
     position: absolute;
     text-align: center;
