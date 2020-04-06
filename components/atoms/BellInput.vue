@@ -1,7 +1,14 @@
 <template>
   <div class="bell-input">
     <span class="bell-input__time">{{ timeText }}</span>
-    <input v-model="inputPrice" class="bell-input__inner" type="number" min="0" max="999">
+    <input
+      v-model="inputPrice"
+      @input="onChange"
+      class="bell-input__inner"
+      type="number"
+      min="0"
+      max="999"
+    >
     <span class="bell-input__badge">ベル</span>
   </div>
 </template>
@@ -35,6 +42,14 @@ export default {
   },
   created() {
     this.inputPrice = this.price;
+  },
+  methods: {
+    onChange(e) {
+      let value = e.target.value >= 1000 ? 999 : e.target.value;
+      value = value < 0 ? 0 : value;
+      this.inputPrice = value;
+      this.$emit('onChange', value, this.isAm);
+    },
   },
 };
 </script>

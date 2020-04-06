@@ -39,6 +39,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     'nuxt-webfontloader',
+    'nuxt-fontawesome',
   ],
   /*
   ** Axios module configuration
@@ -62,5 +63,8 @@ export default {
         'M+PLUS+Rounded+1c',
       ],
     },
+  },
+  fontawesome: {
+    component: 'fa',
   },
 };

@@ -1,8 +1,8 @@
 <template>
   <div class="daily-bell">
     <span class="daily-bell__date">{{ date }}</span>
-    <bell-input :is-am="true" :price="amPrice" />
-    <bell-input :is-am="false" :price="pmPrice" />
+    <bell-input :is-am="true" :price="amPrice" @onChange="onChange" />
+    <bell-input :is-am="false" :price="pmPrice" @onChange="onChange" />
   </div>
 </template>
 
@@ -31,6 +31,11 @@ export default {
     },
     pmPrice() {
       return this.price.pm ? String(this.price.pm) : '';
+    },
+  },
+  methods: {
+    onChange(value, isAm) {
+      this.$emit('onChange', value, isAm, this.date);
     },
   },
 };

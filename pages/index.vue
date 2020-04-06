@@ -2,7 +2,7 @@
   <div class="index">
     <template v-for="dailyPrice in dailyPrices">
       <div :key="dailyPrice.date" class="index__daily-bell">
-        <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" />
+        <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
       </div>
     </template>
     <div class="index__submit">
@@ -29,25 +29,49 @@ export default {
     };
   },
   async created() {
-    const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
-    const doc = await docRef.get();
-    const prices = doc.data().prices;
-    this.userName = doc.data().userName;
-
-    const weekDays = getWeekDays();
-    this.baseDate = weekDays[0];
-    this.weekDays = weekDays.slice(1, 7);
-
-    for (let i = 0; i < this.weekDays.length; i++) {
-      this.dailyPrices.push({
-        date: this.weekDays[i],
-        price: prices[i],
-      });
-    }
+    await this.load();
   },
   methods: {
-    save() {
-      console.log('save');
+    async load() {
+      const docRef = this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D');
+      const doc = await docRef.get();
+      const prices = doc.data().prices;
+      console.log(prices);
+      this.userName = doc.data().userName;
+
+      const weekDays = getWeekDays();
+      this.baseDate = weekDays[0];
+      this.weekDays = weekDays.slice(1, 7);
+
+      for (let i = 0; i < this.weekDays.length; i++) {
+        this.dailyPrices.push({
+          date: this.weekDays[i],
+          price: prices[i].price,
+        });
+      }
+    },
+    async save() {
+      await this.$firestore.collection('prices').doc('nUWb6VPU20z8k4ftTS6D').set({
+        prices: this.dailyPrices,
+      }, { merge: true })
+        .then(() => {
+          console.log('success');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    },
+    onChange(value, isAm, date) {
+      this.setPrice(value, isAm, date);
+    },
+    setPrice(value, isAm, date) {
+      const price = Number(value);
+      const updatedIndex = this.dailyPrices.findIndex(price => price.date === date);
+      if (isAm) {
+        this.dailyPrices[updatedIndex].price.am = price;
+      } else {
+        this.dailyPrices[updatedIndex].price.pm = price;
+      }
     },
   },
 };

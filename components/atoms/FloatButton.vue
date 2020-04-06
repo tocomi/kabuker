@@ -1,13 +1,20 @@
 <template>
   <div class="button-wrapper">
     <button @click="click" class="button">
-      save
+      <fa :icon="faSave" size="lg" />
     </button>
   </div>
 </template>
 
 <script>
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+
 export default {
+  computed: {
+    faSave() {
+      return faSave;
+    },
+  },
   methods: {
     click() {
       this.$emit('onClick');
