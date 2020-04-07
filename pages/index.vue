@@ -35,7 +35,6 @@ export default {
   },
   async created() {
     await this.$auth().onAuthStateChanged((user) => {
-      console.log('user: ', user);
       if (user) {
         this.login = true;
         this.uid = user.uid;
