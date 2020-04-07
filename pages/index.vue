@@ -41,12 +41,15 @@ export default {
 
 <style lang="scss" scoped>
 .index-wrapper {
+  padding: 16px 0 64px;
+
   .header {
     align-items: center;
     display: flex;
     height: 160px;
     justify-content: center;
   }
+
   .main {
     margin-top: 16px;
   }

@@ -26,8 +26,8 @@ export default {
 <style lang="scss" scoped>
 .button-wrapper {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   text-align: center;
 
   .button {
