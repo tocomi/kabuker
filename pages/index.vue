@@ -1,28 +1,36 @@
 <template>
   <div class="index-wrapper">
-    <div class="header">
-      <span>ここにロゴを置くだなも！</span>
-    </div>
-    <div class="main">
-      <google-login v-if="!login" />
-      <weekly-bells v-if="login" :uid="uid" />
-    </div>
+    <template v-if="loading">
+      <loading />
+    </template>
+    <template v-if="!loading">
+      <div class="header">
+        <span>ここにロゴを置くだなも！</span>
+      </div>
+      <div class="main">
+        <google-login v-if="!login" />
+        <weekly-bells v-if="login" :uid="uid" />
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
 import GoogleLogin from '~/components/organisms/GoogleLogin.vue';
+import Loading from '~/components/organisms/Loading.vue';
 import WeeklyBells from '~/components/organisms/WeeklyBells.vue';
 
 export default {
   components: {
     GoogleLogin,
+    Loading,
     WeeklyBells,
   },
   data() {
     return {
       login: false,
       uid: '',
+      loading: true,
     };
   },
   async created() {
@@ -34,6 +42,7 @@ export default {
       } else {
         this.login = false;
       }
+      this.loading = false;
     });
   },
 };

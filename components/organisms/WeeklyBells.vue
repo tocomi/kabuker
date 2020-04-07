@@ -1,30 +1,21 @@
 <template>
   <div class="weekly-bells-wrapper">
     <snackbar :is-shown="showSnackbar" :message="snackbarMessage" :level="snackbarLevel" />
-    <template v-if="loading">
-      <div class="loading-wrapper">
-        <img :src="require('~/assets/images/kabu.png')" class="loading-wrapper__image" alt="kabu">
-        <spinner />
-      </div>
-    </template>
-    <template v-if="!loading">
-      <div class="weekly-bells">
-        <template v-for="dailyPrice in dailyPrices">
-          <div :key="dailyPrice.date" class="weekly-bells__daily-bell">
-            <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
-          </div>
-        </template>
-        <div class="weekly-bells__submit">
-          <float-button @onClick="save" />
+    <div class="weekly-bells">
+      <template v-for="dailyPrice in dailyPrices">
+        <div :key="dailyPrice.date" class="weekly-bells__daily-bell">
+          <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
         </div>
+      </template>
+      <div class="weekly-bells__submit">
+        <float-button @onClick="save" />
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
 import DailyBell from '~/components/molecules/DailyBell.vue';
-import Spinner from '~/components/atoms/Spinner.vue';
 import FloatButton from '~/components/atoms/FloatButton.vue';
 import Snackbar from '~/components/atoms/Snackbar.vue';
 import { getWeekDays, getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
@@ -43,7 +34,6 @@ const emptyPrices = () => {
 export default {
   components: {
     DailyBell,
-    Spinner,
     FloatButton,
     Snackbar,
   },
@@ -59,7 +49,6 @@ export default {
       userName: '',
       baseDate: '',
       dailyPrices: [],
-      loading: false,
       // Snackbar
       showSnackbar: false,
       snackbarMessage: '',
@@ -77,7 +66,6 @@ export default {
   },
   methods: {
     async load() {
-      this.loading = true;
       const docRef = this.$firestore.collection(this.collectionName).doc(this.uid);
       const doc = await docRef.get();
       const prices = doc.data() ? doc.data().prices : emptyPrices();
@@ -93,7 +81,6 @@ export default {
           price: prices[i].price,
         });
       }
-      this.loading = false;
     },
     async save() {
       await this.$firestore.collection(this.collectionName).doc(this.uid).set({
@@ -136,15 +123,6 @@ export default {
 
 <style lang="scss" scoped>
 .weekly-bells-wrapper {
-
-  .loading-wrapper {
-    text-align: center;
-
-    &__image {
-      width: 50vw;
-    }
-  }
-
   .weekly-bells {
     padding: 0 6vw;
     margin: 0 auto;
