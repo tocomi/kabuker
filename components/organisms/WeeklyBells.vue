@@ -47,6 +47,13 @@ export default {
     FloatButton,
     Snackbar,
   },
+  props: {
+    uid: {
+      type: String,
+      required: true,
+      default: '',
+    },
+  },
   data() {
     return {
       userName: '',
@@ -71,7 +78,7 @@ export default {
   methods: {
     async load() {
       this.loading = true;
-      const docRef = this.$firestore.collection(this.collectionName).doc('nUWb6VPU20z8k4ftTS6D');
+      const docRef = this.$firestore.collection(this.collectionName).doc(this.uid);
       const doc = await docRef.get();
       const prices = doc.data() ? doc.data().prices : emptyPrices();
       this.userName = doc.data() ? doc.data().userName : '';
@@ -89,7 +96,7 @@ export default {
       this.loading = false;
     },
     async save() {
-      await this.$firestore.collection(this.collectionName).doc('nUWb6VPU20z8k4ftTS6D').set({
+      await this.$firestore.collection(this.collectionName).doc(this.uid).set({
         userName: this.userName,
         prices: this.dailyPrices,
       }, { merge: true })
@@ -132,7 +139,6 @@ export default {
 
   .loading-wrapper {
     text-align: center;
-    padding-top: 60px;
 
     &__image {
       width: 50vw;
@@ -140,7 +146,7 @@ export default {
   }
 
   .weekly-bells {
-    padding: 48px 6vw;
+    padding: 0 6vw;
     margin: 0 auto;
     max-width: 536px;
 
