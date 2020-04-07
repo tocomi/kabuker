@@ -1,9 +1,9 @@
 <template>
   <div class="google-login-wrapper">
     <div class="login">
-      <button @click="loginGoogle">
+      <div @click="loginGoogle">
         <img :src="require('~/assets/images/google-login-button.png')" class="login__button" alt="Google">
-      </button>
+      </div>
     </div>
     <div class="description">
       <span>ログインしてカブ価を保存するだなも！</span>
@@ -27,7 +27,7 @@ export default {
     width: 100%;
     text-align: center;
     &__button {
-      width: 60vw;
+      width: 200px;
     }
   }
 
