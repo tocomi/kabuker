@@ -68,12 +68,12 @@ export default {
 }
 
 .slide-enter-active, .slide-leave-active {
-  transition: transform .5s
+  transition: transform .7s
 }
 .slide-enter {
-  transform: translateX(300px)
+  transform: translateX(500px)
 }
 .slide-leave-active {
-  transform: translateX(-300px);
+  transform: translateX(-500px);
 }
 </style>
