@@ -82,7 +82,22 @@ export default {
         });
       }
     },
+    validate() {
+      const existsNotNumber = this.dailyPrices.some((daily) => {
+        return isNaN(Number(daily.price.am)) || isNaN(Number(daily.price.pm));
+      });
+      return !existsNotNumber;
+    },
     async save() {
+      if (!this.validate()) {
+        this.snackbarMessage = '数字以外いれるなだなも！！';
+        this.snackbarLevel = 'ERROR';
+        this.showSnackbar = true;
+        setTimeout(() => {
+          this.showSnackbar = false;
+        }, 3000);
+        return;
+      }
       await this.$firestore.collection(this.collectionName).doc(this.uid).set({
         userName: this.userName,
         prices: this.dailyPrices,
