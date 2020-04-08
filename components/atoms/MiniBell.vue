@@ -50,11 +50,11 @@ $font-color: white;
   width: 32px;
 
   &.even {
-    margin-top: -4px;
+    margin-top: -6px;
   }
 
   &.noeven {
-    margin-top: 4px;
+    margin-top: 6px;
   }
 
   .price {

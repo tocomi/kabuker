@@ -50,8 +50,9 @@ export default {
 
 <style lang="scss" scoped>
 .list-wrapper {
-  padding: 16px 6vw 64px;
+  margin: 0 auto;
   max-width: 536px;
+  padding: 16px 6vw 64px;
 
   .header {
     align-items: center;

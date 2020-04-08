@@ -56,7 +56,7 @@ export default {
 
   &__date {
     align-items: center;
-    background-color: #f09d05;
+    background-color: #f58442;
     border-radius: 8px;
     color: white;
     display: flex;

@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$bg-color: #edc453;
+$bg-color: #f5bf2b;
 $font-color: #fcf6e5;
 
 .bell-input {

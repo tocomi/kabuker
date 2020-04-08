@@ -49,7 +49,7 @@ export default {
   .person-bell {
     background-color: #f8f0df;
     border-radius: 8px;
-    height: 88px;
+    height: 92px;
     margin-top: 24px;
     position: relative;
     width: 100%;
