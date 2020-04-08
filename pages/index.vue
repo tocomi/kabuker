@@ -11,6 +11,9 @@
         <google-login v-if="!login" />
         <weekly-bells v-if="login" :uid="uid" />
       </div>
+      <nuxt-link to="/list">
+        一覧だなも
+      </nuxt-link>
     </template>
   </div>
 </template>

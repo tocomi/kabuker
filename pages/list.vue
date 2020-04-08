@@ -8,6 +8,9 @@
         <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" />
       </div>
     </div>
+    <nuxt-link to="/">
+      入力だなも
+    </nuxt-link>
   </div>
 </template>
 
