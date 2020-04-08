@@ -1,7 +1,7 @@
 <template>
   <div :class="even" class="mini-bell-wrapper">
     <div class="price">
-      <span>{{ price }}</span>
+      <span>{{ trimmedPrice }}</span>
     </div>
   </div>
 </template>
@@ -21,6 +21,9 @@ export default {
     },
   },
   computed: {
+    trimmedPrice() {
+      return this.price ? this.price : '';
+    },
     even() {
       if (this.index % 2 === 0) {
         return 'even';
