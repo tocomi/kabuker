@@ -1,25 +1,67 @@
 <template>
-  <div class="list">
-    <logo />
+  <div class="list-wrapper">
+    <div class="header">
+      <span>ここにロゴを置くだなも！</span>
+    </div>
+    <div class="main">
+      <div v-for="personPrice in priceList" :key="personPrice.userName">
+        <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue';
+import PersonBell from '~/components/molecules/PersonBell.vue';
+import { getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
 
 export default {
   components: {
-    Logo,
+    PersonBell,
   },
   data() {
     return {
+      priceList: [],
     };
   },
+  computed: {
+    collectionName() {
+      const YYYYMMDD = getBaseSundayYYYYMMDD();
+      return `prices${YYYYMMDD}`;
+    },
+  },
   async created() {
+    const snapshot = await this.$firestore.collection(this.collectionName).get();
+    snapshot.forEach((doc) => {
+      const userName = doc.data().userName;
+      const prices = [];
+      doc.data().prices.forEach((daily) => {
+        prices.push(daily.price.am);
+        prices.push(daily.price.pm);
+      });
+      this.priceList.push({
+        userName,
+        prices,
+      });
+    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.list-wrapper {
+  padding: 16px 6vw 64px;
+  max-width: 536px;
 
+  .header {
+    align-items: center;
+    display: flex;
+    height: 160px;
+    justify-content: center;
+  }
+
+  .main {
+    margin-top: 16px;
+  }
+}
 </style>
