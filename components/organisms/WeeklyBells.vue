@@ -2,11 +2,17 @@
   <div class="weekly-bells-wrapper">
     <snackbar :is-shown="showSnackbar" :message="snackbarMessage" :level="snackbarLevel" />
     <div class="weekly-bells">
-      <template v-for="dailyPrice in dailyPrices">
-        <div :key="dailyPrice.date" class="weekly-bells__daily-bell">
-          <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
-        </div>
-      </template>
+      <div class="user">
+        <span class="user__label">なまえ</span>
+        <input v-model="userName" class="user__name">
+      </div>
+      <div class="dailys">
+        <template v-for="dailyPrice in dailyPrices">
+          <div :key="dailyPrice.date" class="dailys__daily-bell">
+            <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
+          </div>
+        </template>
+      </div>
       <div class="weekly-bells__submit">
         <float-button @onClick="save" />
       </div>
@@ -143,8 +149,31 @@ export default {
     margin: 0 auto;
     max-width: 536px;
 
-    &__daily-bell {
-      margin-top: 16px;
+    .user {
+      display: flex;
+      justify-content: center;
+
+      &__label {
+        text-align: center;
+        width: 80px;
+      }
+
+      &__name {
+        border: none;
+        border-bottom: 1px solid #999;
+        font-family: 'M PLUS Rounded 1c';
+        font-size: 16px;
+        outline: none;
+        text-align: center;
+        width: 80px;
+      }
+    }
+    .dailys {
+      margin-top: 32px;
+
+      &__daily-bell {
+        margin-top: 16px;
+      }
     }
 
     &__submit {
