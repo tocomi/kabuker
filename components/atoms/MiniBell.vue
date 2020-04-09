@@ -1,5 +1,5 @@
 <template>
-  <div :class="even" class="mini-bell-wrapper">
+  <div :class="[even, current]" class="mini-bell-wrapper">
     <div class="price">
       <span>{{ trimmedPrice }}</span>
     </div>
@@ -19,16 +19,21 @@ export default {
       required: true,
       default: 0,
     },
+    currentIndex: {
+      type: Number,
+      required: true,
+      default: -1,
+    },
   },
   computed: {
     trimmedPrice() {
       return this.price ? this.price : '';
     },
     even() {
-      if (this.index % 2 === 0) {
-        return 'even';
-      }
-      return 'noeven';
+      return this.index % 2 === 0 ? 'even' : 'noeven';
+    },
+    current() {
+      return this.index === this.currentIndex ? 'current' : '';
     },
   },
 };
@@ -58,6 +63,10 @@ $font-color: white;
 
   &.noeven {
     margin-top: 6px;
+  }
+
+  &.current {
+    background-color: #fffd7d;
   }
 
   .price {

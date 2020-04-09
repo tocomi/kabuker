@@ -5,10 +5,10 @@
         <span>{{ userName }}</span>
       </div>
       <div class="person-bell__prices">
-        <mini-bell v-for="(price, index) in firstPrices" :key="price" :price="price" :index="index" />
+        <mini-bell v-for="(price, index) in firstPrices" :key="price" :price="price" :index="index" :current-index="currentIndex" />
       </div>
       <div class="person-bell__prices">
-        <mini-bell v-for="(price, index) in secondPrices" :key="price" :price="price" :index="index" />
+        <mini-bell v-for="(price, index) in secondPrices" :key="price" :price="price" :index="index + 6" :current-index="currentIndex" />
       </div>
     </div>
   </div>
@@ -16,6 +16,7 @@
 
 <script>
 import MiniBell from '~/components/atoms/MiniBell.vue';
+import { getCurrentTimeIndex } from '~/domains/date/DateUtil';
 
 export default {
   components: {
@@ -39,6 +40,9 @@ export default {
     },
     secondPrices() {
       return this.prices.slice(6, 12);
+    },
+    currentIndex() {
+      return getCurrentTimeIndex();
     },
   },
 };
