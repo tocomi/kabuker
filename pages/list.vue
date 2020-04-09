@@ -3,7 +3,8 @@
     <div class="header">
       <span>ここにロゴを置くだなも！</span>
     </div>
-    <div class="main">
+    <simple-loading v-if="loading" />
+    <div v-if="!loading" class="main">
       <div v-for="personPrice in priceList" :key="personPrice.userName">
         <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" />
       </div>
@@ -17,16 +18,19 @@
 <script>
 import LinkButton from '~/components/atoms/LinkButton.vue';
 import PersonBell from '~/components/molecules/PersonBell.vue';
+import SimpleLoading from '~/components/organisms/SimpleLoading.vue';
 import { getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
 
 export default {
   components: {
     LinkButton,
     PersonBell,
+    SimpleLoading,
   },
   data() {
     return {
       priceList: [],
+      loading: true,
     };
   },
   computed: {
@@ -49,6 +53,7 @@ export default {
         prices,
       });
     });
+    this.loading = false;
   },
 };
 </script>

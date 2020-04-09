@@ -9,8 +9,8 @@
       </div>
       <div class="main">
         <google-login v-if="!login" />
-        <weekly-bells v-if="login" :uid="uid" />
-        <link-button to="/list">
+        <weekly-bells v-if="login" :uid="uid" @finish="childFinish" />
+        <link-button v-if="!login || !childLoading" to="/list">
           みんなのカブ価を見てみる！
         </link-button>
       </div>
@@ -36,6 +36,7 @@ export default {
       login: false,
       uid: '',
       loading: true,
+      childLoading: true,
     };
   },
   async created() {
@@ -48,6 +49,11 @@ export default {
       }
       this.loading = false;
     });
+  },
+  methods: {
+    childFinish() {
+      this.childLoading = false;
+    },
   },
 };
 </script>

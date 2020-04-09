@@ -32,7 +32,7 @@ export default {
   }
 
   .description {
-    margin-top: 16px;
+    margin: 8px 0 48px;
     text-align: center;
   }
 }

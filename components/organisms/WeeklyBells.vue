@@ -1,29 +1,33 @@
 <template>
   <div class="weekly-bells-wrapper">
-    <snackbar :is-shown="showSnackbar" :message="snackbarMessage" :level="snackbarLevel" />
-    <div class="weekly-bells">
-      <div class="user">
-        <span class="user__label">なまえ</span>
-        <input v-model="userName" class="user__name">
+    <simple-loading v-if="loading" />
+    <template v-if="!loading">
+      <snackbar :is-shown="showSnackbar" :message="snackbarMessage" :level="snackbarLevel" />
+      <div class="weekly-bells">
+        <div class="user">
+          <span class="user__label">なまえ</span>
+          <input v-model="userName" class="user__name">
+        </div>
+        <div class="dailys">
+          <template v-for="dailyPrice in dailyPrices">
+            <div :key="dailyPrice.date" class="dailys__daily-bell">
+              <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
+            </div>
+          </template>
+        </div>
+        <div class="weekly-bells__submit">
+          <float-button @onClick="save" />
+        </div>
       </div>
-      <div class="dailys">
-        <template v-for="dailyPrice in dailyPrices">
-          <div :key="dailyPrice.date" class="dailys__daily-bell">
-            <daily-bell :date="dailyPrice.date" :price="dailyPrice.price" @onChange="onChange" />
-          </div>
-        </template>
-      </div>
-      <div class="weekly-bells__submit">
-        <float-button @onClick="save" />
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
-import DailyBell from '~/components/molecules/DailyBell.vue';
 import FloatButton from '~/components/atoms/FloatButton.vue';
 import Snackbar from '~/components/atoms/Snackbar.vue';
+import DailyBell from '~/components/molecules/DailyBell.vue';
+import SimpleLoading from '~/components/organisms/SimpleLoading.vue';
 import { getWeekDays, getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
 
 const emptyPrices = () => {
@@ -39,9 +43,10 @@ const emptyPrices = () => {
 
 export default {
   components: {
-    DailyBell,
     FloatButton,
     Snackbar,
+    DailyBell,
+    SimpleLoading,
   },
   props: {
     uid: {
@@ -59,6 +64,7 @@ export default {
       showSnackbar: false,
       snackbarMessage: '',
       snackbarLevel: 'INFO',
+      loading: true,
     };
   },
   computed: {
@@ -87,6 +93,11 @@ export default {
           price: prices[i].price,
         });
       }
+      this.finishLoading();
+    },
+    finishLoading() {
+      this.loading = false;
+      this.$emit('finish');
     },
     validate() {
       const existsNotNumber = this.dailyPrices.some((daily) => {
@@ -168,6 +179,7 @@ export default {
         width: 80px;
       }
     }
+
     .dailys {
       margin-top: 32px;
 
