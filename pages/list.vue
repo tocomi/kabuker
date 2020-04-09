@@ -9,7 +9,7 @@
         <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" />
       </div>
       <link-button class="main__link">
-        カブ価を登録する！
+        カブ価を記録する！
       </link-button>
     </div>
   </div>
