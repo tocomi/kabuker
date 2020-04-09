@@ -59,8 +59,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$bg-color: #f5bf2b;
-$font-color: #fcf6e5;
+$bg-color: #e1c355;
+$font-color: #fffaea;
 
 .bell-input {
   align-items: center;
