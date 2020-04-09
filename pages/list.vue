@@ -7,19 +7,21 @@
       <div v-for="personPrice in priceList" :key="personPrice.userName">
         <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" />
       </div>
+      <link-button class="main__link">
+        カブ価を登録する！
+      </link-button>
     </div>
-    <nuxt-link to="/">
-      入力だなも
-    </nuxt-link>
   </div>
 </template>
 
 <script>
+import LinkButton from '~/components/atoms/LinkButton.vue';
 import PersonBell from '~/components/molecules/PersonBell.vue';
 import { getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
 
 export default {
   components: {
+    LinkButton,
     PersonBell,
   },
   data() {
@@ -66,6 +68,10 @@ export default {
 
   .main {
     margin-top: 16px;
+
+    &__link {
+      margin-top: 16px;
+    }
   }
 }
 </style>

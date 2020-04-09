@@ -10,21 +10,23 @@
       <div class="main">
         <google-login v-if="!login" />
         <weekly-bells v-if="login" :uid="uid" />
+        <link-button to="/list">
+          みんなのカブ価を見てみる！
+        </link-button>
       </div>
-      <nuxt-link to="/list">
-        一覧だなも
-      </nuxt-link>
     </template>
   </div>
 </template>
 
 <script>
+import LinkButton from '~/components/atoms/LinkButton.vue';
 import GoogleLogin from '~/components/organisms/GoogleLogin.vue';
 import Loading from '~/components/organisms/Loading.vue';
 import WeeklyBells from '~/components/organisms/WeeklyBells.vue';
 
 export default {
   components: {
+    LinkButton,
     GoogleLogin,
     Loading,
     WeeklyBells,
