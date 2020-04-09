@@ -1,7 +1,7 @@
 <template>
   <div class="link-button-wrapper">
     <nuxt-link :to="to" class="link-button">
-      <slot />
+      <span class="link-button__text"><slot /></span>
     </nuxt-link>
   </div>
 </template>
@@ -37,6 +37,11 @@ export default {
     justify-content: center;
     text-decoration: none;
     width: 280px;
+
+    &__text {
+      text-align: center;
+      width: 100%;
+    }
   }
 }
 </style>
