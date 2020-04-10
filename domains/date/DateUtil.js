@@ -26,9 +26,9 @@ export const getBaseSundayYYYYMMDD = () => {
 export const getCurrentTimeIndex = () => {
   const now = dayjs();
   let diff = 3;
-  if (now.hour >= 6 && now.hour < 12) {
+  if (now.hour() >= 6 && now.hour() < 12) {
     diff = 2;
-  } else if (now.hour >= 12 && now.hour <= 23) {
+  } else if (now.hour() >= 12 && now.hour() <= 23) {
     diff = 1;
   }
   return now.day() * 2 - diff;
