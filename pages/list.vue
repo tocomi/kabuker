@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper">
     <div class="header">
-      <span>ここにロゴを置くだなも！</span>
+      <span>(ここにロゴを置くだなも)</span>
     </div>
     <simple-loading v-if="loading" />
     <div v-if="!loading" class="main">

@@ -5,7 +5,7 @@
     </template>
     <template v-if="!loading">
       <div class="header">
-        <span>ここにロゴを置くだなも！</span>
+        <span>(ここにロゴを置くだなも)</span>
       </div>
       <div class="main">
         <google-login v-if="!login" />
