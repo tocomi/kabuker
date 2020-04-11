@@ -5,7 +5,9 @@
       <snackbar :is-shown="showSnackbar" :message="snackbarMessage" :level="snackbarLevel" />
       <div class="weekly-bells">
         <div class="user">
-          <span class="user__label">なまえ</span>
+          <div class="user__label">
+            <span>なまえ</span>
+          </div>
           <input v-model="userName" class="user__name">
         </div>
         <div class="dailys">
@@ -161,22 +163,40 @@ export default {
     max-width: 536px;
 
     .user {
-      display: flex;
-      justify-content: center;
+      background-color: #e5f4fa;
+      border: solid 2px #239dca;
+      border-radius: 14px;
+      height: 32px;
+      position: relative;
+      text-align: center;
 
       &__label {
+        align-items: center;
+        background-color: #239dca;
+        border-radius: 12px;
+        display: flex;
+        height: 24px;
+        left: 2px;
+        position: absolute;
         text-align: center;
+        top: 2px;
+        justify-content: center;
         width: 80px;
+
+        span {
+          color: white;
+          width: 100%;
+        }
       }
 
       &__name {
+        background: none;
         border: none;
-        border-bottom: 1px solid #999;
         font-family: 'M PLUS Rounded 1c';
-        font-size: 16px;
+        font-size: 15px;
         outline: none;
+        margin: 2px 0 0 80px;
         text-align: center;
-        width: 80px;
       }
     }
 
