@@ -198,7 +198,7 @@ export default {
         font-family: 'M PLUS Rounded 1c';
         font-size: 16px;
         outline: none;
-        margin: 2px 0 0 120px;
+        margin-left: 112px;
         text-align: center;
       }
     }
