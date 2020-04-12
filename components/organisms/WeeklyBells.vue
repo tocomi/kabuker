@@ -163,25 +163,28 @@ export default {
     max-width: 536px;
 
     .user {
+      align-items: center;
       background-color: #e5f4fa;
       border: solid 2px #239dca;
-      border-radius: 14px;
-      height: 32px;
+      border-radius: 20px;
+      display: flex;
+      height: 40px;
+      justify-content: center;
       position: relative;
       text-align: center;
 
       &__label {
         align-items: center;
         background-color: #239dca;
-        border-radius: 12px;
+        border-radius: 16px;
         display: flex;
-        height: 24px;
+        height: 32px;
         left: 2px;
         position: absolute;
         text-align: center;
         top: 2px;
         justify-content: center;
-        width: 80px;
+        width: 120px;
 
         span {
           color: white;
@@ -193,9 +196,9 @@ export default {
         background: none;
         border: none;
         font-family: 'M PLUS Rounded 1c';
-        font-size: 15px;
+        font-size: 16px;
         outline: none;
-        margin: 2px 0 0 80px;
+        margin: 2px 0 0 120px;
         text-align: center;
       }
     }
