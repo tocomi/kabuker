@@ -200,6 +200,7 @@ export default {
         outline: none;
         margin-left: 112px;
         text-align: center;
+        width: 100%;
       }
     }
 
