@@ -33,6 +33,11 @@ export default {
       required: true,
       default: undefined,
     },
+    thisWeek: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   computed: {
     firstPrices() {
@@ -42,6 +47,7 @@ export default {
       return this.prices.slice(6, 12);
     },
     currentIndex() {
+      if (!this.thisWeek) return -1;
       return getCurrentTimeIndex();
     },
   },

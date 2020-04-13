@@ -30,7 +30,7 @@ import FloatButton from '~/components/atoms/FloatButton.vue';
 import Snackbar from '~/components/atoms/Snackbar.vue';
 import DailyBell from '~/components/molecules/DailyBell.vue';
 import SimpleLoading from '~/components/organisms/SimpleLoading.vue';
-import { getWeekDays, getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
+import { getWeekDays, getBaseSunday, getYYYYMMDD } from '~/domains/date/DateUtil';
 
 const emptyPrices = () => {
   return [1, 2, 3, 4, 5, 6].map(() => {
@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     collectionName() {
-      const YYYYMMDD = getBaseSundayYYYYMMDD();
+      const YYYYMMDD = getYYYYMMDD(getBaseSunday());
       return `prices${YYYYMMDD}`;
     },
   },

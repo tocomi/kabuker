@@ -5,8 +5,21 @@
     </div>
     <simple-loading v-if="loading" />
     <div v-if="!loading" class="main">
-      <div v-for="personPrice in priceList" :key="personPrice.userName">
-        <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" />
+      <div class="date">
+        <button @click="previous" v-show="showPrevious" class="date__previous">
+          ←
+        </button>
+        <div class="date__term">
+          <span>{{ displayTerm }}</span>
+        </div>
+        <button @click="next" v-show="showNext" class="date__next">
+          →
+        </button>
+      </div>
+      <div class="person-price">
+        <div v-for="personPrice in priceList" :key="personPrice.userName">
+          <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" :this-week="thisWeek" />
+        </div>
       </div>
       <link-button class="main__link">
         カブ価を記録する！
@@ -19,7 +32,7 @@
 import LinkButton from '~/components/atoms/LinkButton.vue';
 import PersonBell from '~/components/molecules/PersonBell.vue';
 import SimpleLoading from '~/components/organisms/SimpleLoading.vue';
-import { getBaseSundayYYYYMMDD } from '~/domains/date/DateUtil';
+import { getBaseSundays, getYYYYMMDD, getMMDDDay } from '~/domains/date/DateUtil';
 
 export default {
   components: {
@@ -29,31 +42,64 @@ export default {
   },
   data() {
     return {
+      displayDateList: [],
+      dateIndex: 0,
       priceList: [],
       loading: true,
     };
   },
   computed: {
+    baseDate() {
+      return this.displayDateList[this.dateIndex];
+    },
     collectionName() {
-      const YYYYMMDD = getBaseSundayYYYYMMDD();
+      const YYYYMMDD = getYYYYMMDD(this.baseDate);
       return `prices${YYYYMMDD}`;
+    },
+    displayTerm() {
+      return getMMDDDay(this.baseDate);
+    },
+    showPrevious() {
+      return this.dateIndex < 1;
+    },
+    showNext() {
+      return this.dateIndex > 0;
+    },
+    thisWeek() {
+      return this.dateIndex === 0;
     },
   },
   async created() {
-    const snapshot = await this.$firestore.collection(this.collectionName).get();
-    snapshot.forEach((doc) => {
-      const userName = doc.data().userName;
-      const prices = [];
-      doc.data().prices.forEach((daily) => {
-        prices.push(daily.price.am);
-        prices.push(daily.price.pm);
+    this.displayDateList = getBaseSundays();
+    await this.load();
+  },
+  methods: {
+    async load() {
+      this.loading = true;
+      this.priceList.length = 0;
+      const snapshot = await this.$firestore.collection(this.collectionName).get();
+      snapshot.forEach((doc) => {
+        const userName = doc.data().userName;
+        const prices = [];
+        doc.data().prices.forEach((daily) => {
+          prices.push(daily.price.am);
+          prices.push(daily.price.pm);
+        });
+        this.priceList.push({
+          userName,
+          prices,
+        });
       });
-      this.priceList.push({
-        userName,
-        prices,
-      });
-    });
-    this.loading = false;
+      this.loading = false;
+    },
+    async previous() {
+      this.dateIndex++;
+      await this.load();
+    },
+    async next() {
+      this.dateIndex--;
+      await this.load();
+    },
   },
 };
 </script>
@@ -73,6 +119,29 @@ export default {
 
   .main {
     margin-top: 16px;
+
+    .date {
+      margin-top: 16px;
+      position: relative;
+      text-align: center;
+      width: 280px;
+
+      &__previous {
+        left: 32px;
+        position: absolute;
+        top: 2px;
+      }
+
+      &__next {
+        right: 32px;
+        position: absolute;
+        top: 2px;
+      }
+    }
+
+    .person-price {
+      margin-top: 40px;
+    }
 
     &__link {
       margin-top: 16px;

@@ -17,10 +17,25 @@ export const getWeekDays = () => {
   return weekDays;
 };
 
-export const getBaseSundayYYYYMMDD = () => {
-  const now = dayjs();
-  const baseSunday = now.add(-now.day(), 'days');
-  return baseSunday.format('YYYYMMDD');
+export const getBaseSunday = (date) => {
+  const now = date || dayjs();
+  return now.add(-now.day(), 'days');
+};
+
+export const getBaseSundays = () => {
+  const baseSundays = [];
+  const baseSunday = getBaseSunday();
+  baseSundays.push(baseSunday);
+  baseSundays.push(baseSunday.add(-7, 'days'));
+  return baseSundays;
+};
+
+export const getYYYYMMDD = (date) => {
+  return date.format('YYYYMMDD');
+};
+
+export const getMMDDDay = (date) => {
+  return date.format(`MM/DD (${days.charAt(date.day())})`);
 };
 
 export const getCurrentTimeIndex = () => {
