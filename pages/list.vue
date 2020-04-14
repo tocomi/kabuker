@@ -129,10 +129,10 @@ export default {
       .term {
         &__text {
           background-color: #239dca;
-          border-radius: 20px;
+          border-radius: 8px;
           color: white;
           font-weight: bold;
-          padding: 8px 16px;
+          padding: 4px 16px;
         }
       }
 
