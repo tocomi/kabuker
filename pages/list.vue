@@ -9,8 +9,8 @@
         <button @click="previous" v-show="showPrevious" class="date__previous">
           ←
         </button>
-        <div class="date__term">
-          <span>{{ displayTerm }}</span>
+        <div class="term">
+          <span class="term__text">{{ displayTerm }}</span>
         </div>
         <button @click="next" v-show="showNext" class="date__next">
           →
@@ -32,7 +32,7 @@
 import LinkButton from '~/components/atoms/LinkButton.vue';
 import PersonBell from '~/components/molecules/PersonBell.vue';
 import SimpleLoading from '~/components/organisms/SimpleLoading.vue';
-import { getBaseSundays, getYYYYMMDD, getMMDDDay } from '~/domains/date/DateUtil';
+import { getBaseSundays, getYYYYMMDD, getTerm } from '~/domains/date/DateUtil';
 
 export default {
   components: {
@@ -57,7 +57,7 @@ export default {
       return `prices${YYYYMMDD}`;
     },
     displayTerm() {
-      return getMMDDDay(this.baseDate);
+      return getTerm(this.baseDate);
     },
     showPrevious() {
       return this.dateIndex < 1;
@@ -124,7 +124,17 @@ export default {
       margin-top: 16px;
       position: relative;
       text-align: center;
-      width: 280px;
+      width: 100%;
+
+      .term {
+        &__text {
+          background-color: #239dca;
+          border-radius: 20px;
+          color: white;
+          font-weight: bold;
+          padding: 8px 16px;
+        }
+      }
 
       &__previous {
         left: 32px;

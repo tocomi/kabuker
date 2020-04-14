@@ -38,6 +38,14 @@ export const getMMDDDay = (date) => {
   return date.format(`MM/DD (${days.charAt(date.day())})`);
 };
 
+export const getTerm = (sunday) => {
+  const monday = sunday.add(1, 'days');
+  const saturday = sunday.add(6, 'days');
+  const mondayFormat = monday.format(`DD (${days.charAt(monday.day())})`);
+  const saturdayFormat = saturday.format(`DD (${days.charAt(saturday.day())})`);
+  return `${mondayFormat} - ${saturdayFormat}`;
+};
+
 export const getCurrentTimeIndex = () => {
   const now = dayjs();
   let diff = 3;
