@@ -15,6 +15,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
   },
+  srcDir: 'src/',
   server: {
     host: '0.0.0.0',
   },
