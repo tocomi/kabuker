@@ -1,6 +1,6 @@
 <template>
   <div class="invite-wrapper">
-    <h3>かみんぐすーんだなも</h3>
+    <h3>かみんぐすーんだなも！</h3>
     <bottom-navigation />
   </div>
 </template>

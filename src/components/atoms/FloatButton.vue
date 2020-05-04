@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .button-wrapper {
   position: fixed;
-  bottom: calc(20px + #{$bottom-nav-height});
+  bottom: calc(20px + #{$bottom-nav-height} + env(safe-area-inset-bottom));
   right: 20px;
   text-align: center;
 
