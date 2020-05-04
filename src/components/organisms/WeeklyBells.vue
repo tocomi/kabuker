@@ -160,7 +160,7 @@ export default {
   .weekly-bells {
     padding: 0 6vw;
     margin: 0 auto;
-    max-width: 536px;
+    max-width: $max-width;
 
     .user {
       align-items: center;

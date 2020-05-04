@@ -44,6 +44,7 @@ export default {
     '@nuxtjs/eslint-module',
     'nuxt-webfontloader',
     'nuxt-fontawesome',
+    '@nuxtjs/style-resources',
   ],
   /*
   ** Axios module configuration
@@ -70,5 +71,10 @@ export default {
   },
   fontawesome: {
     component: 'fa',
+  },
+  styleResources: {
+    scss: [
+      '~/assets/styles/_index.scss',
+    ],
   },
 };
