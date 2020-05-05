@@ -165,7 +165,7 @@ export default {
     .user {
       align-items: center;
       background-color: #e5f4fa;
-      border: solid 2px #239dca;
+      border: solid 2px $blue;
       border-radius: 20px;
       display: flex;
       height: 40px;
@@ -175,7 +175,7 @@ export default {
 
       &__label {
         align-items: center;
-        background-color: #239dca;
+        background-color: $blue;
         border-radius: 16px;
         display: flex;
         height: 32px;

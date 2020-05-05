@@ -4,6 +4,9 @@
       <div class="person-bell__user-name">
         <span>{{ userName }}</span>
       </div>
+      <div class="person-bell__pattern">
+        <pattern-label :pattern="pattern" class="person-bell__pettern" />
+      </div>
       <div class="person-bell__prices">
         <mini-bell v-for="(price, index) in firstPrices" :key="price" :price="price" :index="index" :current-index="currentIndex" />
       </div>
@@ -16,11 +19,14 @@
 
 <script>
 import MiniBell from '~/components/atoms/MiniBell.vue';
+import PatternLabel from '~/components/atoms/PatternLabel.vue';
 import { getCurrentTimeIndex } from '~/domains/date/DateUtil';
+import { doAnalyze } from '~/domains/price/PatternAnalyzer';
 
 export default {
   components: {
     MiniBell,
+    PatternLabel,
   },
   props: {
     userName: {
@@ -50,6 +56,10 @@ export default {
       if (!this.thisWeek) return -1;
       return getCurrentTimeIndex();
     },
+    pattern() {
+      // TODO: 買値を取得する
+      return doAnalyze(0, this.prices);
+    },
   },
 };
 </script>
@@ -77,6 +87,12 @@ export default {
       top: -12px;
       transform: rotate(-4deg);
       width: 96px;
+    }
+
+    &__pattern {
+      position: absolute;
+      right: 8px;
+      top: -14px;
     }
 
     &__prices {
