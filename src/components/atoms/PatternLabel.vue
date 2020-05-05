@@ -62,6 +62,8 @@ export default {
   align-items: center;
   color: darken($color: $blue, $amount: 12%);
   display: flex;
+  font-size: 14px;
+  height: inherit;
   justify-content: space-between;
 
   .matched {
