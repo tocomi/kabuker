@@ -31,7 +31,7 @@ export default {
   text-align: center;
 
   .button {
-    background-color: #239dca;
+    background-color: $blue;
     border: none;
     border-radius: 50%;
     box-shadow: 2px 2px 3px #999;

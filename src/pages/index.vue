@@ -132,7 +132,7 @@ export default {
 
       .term {
         &__text {
-          background-color: #239dca;
+          background-color: $blue;
           border-radius: 8px;
           color: white;
           font-weight: bold;
