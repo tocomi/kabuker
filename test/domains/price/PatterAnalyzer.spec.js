@@ -64,6 +64,34 @@ describe('買値のベルがない', () => {
     const expected = makeExpectedResult(false, false, false, true);
     expect(result).toStrictEqual(expected);
   });
+
+  it('99-126ベルが2回続いたら波型か跳ね小型', () => {
+    const prices = [78, 73, 102, 111];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, true, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('99-126ベル1回のあとに154ベルを超えたら跳ね大型', () => {
+    const prices = [88, 84, 102, 168];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(false, false, false, true);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('99-126ベル1回のあとに81ベルを下回ったら波型', () => {
+    const prices = [59, 53, 45, 124, 70];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, false, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('99-126ベルが3回以上続いたら波型', () => {
+    const prices = [59, 53, 102, 111, 118, 68, 62];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, false, false);
+    expect(result).toStrictEqual(expected);
+  });
 });
 
 const makeExpectedResult = (a, b, c, d) => {
