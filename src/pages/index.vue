@@ -19,7 +19,12 @@
         </div>
         <div class="person-price">
           <div v-for="personPrice in priceList" :key="personPrice.userName">
-            <person-bell :user-name="personPrice.userName" :prices="personPrice.prices" :this-week="thisWeek" />
+            <person-bell
+              :user-name="personPrice.userName"
+              :bought-price="personPrice.boughtPrice"
+              :prices="personPrice.prices"
+              :this-week="thisWeek"
+            />
           </div>
         </div>
       </div>
@@ -80,6 +85,7 @@ export default {
       const snapshot = await this.$firestore.collection(this.collectionName).get();
       snapshot.forEach((doc) => {
         const userName = doc.data().userName;
+        const boughtPrice = doc.data().boughtPrice;
         const prices = [];
         doc.data().prices.forEach((daily) => {
           prices.push(daily.price.am);
@@ -87,6 +93,7 @@ export default {
         });
         this.priceList.push({
           userName,
+          boughtPrice,
           prices,
         });
       });
