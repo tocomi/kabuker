@@ -10,6 +10,9 @@
           </div>
           <input v-model="userName" class="user__name">
         </div>
+        <div class="bought-price">
+          <bought-price :price="boughtPrice" @onChangeBoughtPrice="onChangeBoughtPrice" />
+        </div>
         <div class="dailys">
           <template v-for="dailyPrice in dailyPrices">
             <div :key="dailyPrice.date" class="dailys__daily-bell">
@@ -29,6 +32,7 @@
 import FloatButton from '~/components/atoms/FloatButton.vue';
 import Snackbar from '~/components/atoms/Snackbar.vue';
 import DailyBell from '~/components/molecules/DailyBell.vue';
+import BoughtPrice from '~/components/molecules/BoughtPrice.vue';
 import SimpleLoading from '~/components/organisms/SimpleLoading.vue';
 import { getWeekDays, getBaseSunday, getYYYYMMDD } from '~/domains/date/DateUtil';
 
@@ -48,6 +52,7 @@ export default {
     FloatButton,
     Snackbar,
     DailyBell,
+    BoughtPrice,
     SimpleLoading,
   },
   props: {
@@ -61,6 +66,7 @@ export default {
     return {
       userName: '',
       baseDate: '',
+      boughtPrice: 0,
       dailyPrices: [],
       // Snackbar
       showSnackbar: false,
@@ -84,6 +90,7 @@ export default {
       const doc = await docRef.get();
       const prices = doc.data() ? doc.data().prices : emptyPrices();
       this.userName = doc.data() ? doc.data().userName : '';
+      this.boughtPrice = doc.data() ? doc.data().boughtPrice : 0;
 
       const weekDays = getWeekDays();
       this.baseDate = weekDays[0];
@@ -119,6 +126,7 @@ export default {
       }
       await this.$firestore.collection(this.collectionName).doc(this.uid).set({
         userName: this.userName,
+        boughtPrice: this.boughtPrice,
         prices: this.dailyPrices,
       }, { merge: true })
         .then(() => {
@@ -150,6 +158,9 @@ export default {
       } else {
         this.dailyPrices[updatedIndex].price.pm = price;
       }
+    },
+    onChangeBoughtPrice(value) {
+      this.boughtPrice = Number(value);
     },
   },
 };
@@ -202,6 +213,10 @@ export default {
         text-align: center;
         width: 100%;
       }
+    }
+
+    .bought-price {
+      margin-top: 32px;
     }
 
     .dailys {

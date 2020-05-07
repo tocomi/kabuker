@@ -1,6 +1,6 @@
 <template>
   <div class="bell-input">
-    <div class="bell-input__time">
+    <div :class="{ hidden: hiddenTime }" class="bell-input__time">
       <span>{{ timeText }}</span>
     </div>
     <input
@@ -22,13 +22,18 @@ export default {
   props: {
     isAm: {
       type: Boolean,
-      required: true,
+      required: false,
       default: true,
     },
     price: {
       type: String,
       required: true,
       default: '',
+    },
+    hiddenTime: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {
@@ -88,6 +93,10 @@ $font-color: #fffaea;
     text-align: center;
     top: -6px;
     width: 40px;
+
+    &.hidden {
+      display: none;
+    }
   }
 
   &__inner {

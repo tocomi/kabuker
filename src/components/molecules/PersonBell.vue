@@ -77,7 +77,7 @@ export default {
     &__user-name {
       align-items: center;
       color: white;
-      background-color: #f58442;
+      background-color: $orange;
       border-radius: 10px;
       display: flex;
       height: 20px;
