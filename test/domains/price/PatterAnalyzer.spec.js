@@ -2,7 +2,77 @@ import { doAnalyze } from '~/src/domains/price/PatternAnalyzer';
 import PatternType from '~/src/types/PatternType';
 
 describe('買値のベルがある', () => {
-  it('test', () => {
+  const boughtPrice = 97;
+  it('月曜AMが90-140%の場合は波型か跳ね小型', () => {
+    const prices = [88, 0, 0, 0];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, true, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('月曜AMが85-90%の場合は波型ではない', () => {
+    const expected = makeExpectedResult(false, true, true, true);
+    const prices = [87, 0, 0, 0];
+    const result = doAnalyze(boughtPrice, prices);
+    expect(result).toStrictEqual(expected);
+    const prices2 = [83, 0, 0, 0];
+    const result2 = doAnalyze(boughtPrice, prices2);
+    expect(result2).toStrictEqual(expected);
+  });
+
+  it('月曜AMが80-85%の場合は跳ね小型', () => {
+    const expected = makeExpectedResult(false, false, true, false);
+    const prices = [82, 0, 0, 0];
+    const result = doAnalyze(boughtPrice, prices);
+    expect(result).toStrictEqual(expected);
+    const prices2 = [78, 0, 0, 0];
+    const result2 = doAnalyze(boughtPrice, prices2);
+    expect(result2).toStrictEqual(expected);
+  });
+
+  it('月曜AMが60-80%の場合は波型か跳ね小型', () => {
+    const expected = makeExpectedResult(true, false, true, false);
+    const prices = [77, 0, 0, 0];
+    const result = doAnalyze(boughtPrice, prices);
+    expect(result).toStrictEqual(expected);
+    const prices2 = [59, 0, 0, 0];
+    const result2 = doAnalyze(boughtPrice, prices2);
+    expect(result2).toStrictEqual(expected);
+  });
+
+  it('月曜AMが40-60%の場合は跳ね小型', () => {
+    const prices = [58, 0, 0, 0];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(false, false, true, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('90-140%1回の後に80%を下回ったら波型', () => {
+    const prices = [59, 53, 45, 124, 70, 61];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, false, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('90-140%1回の後に140%を超えたら跳ね大型', () => {
+    const prices = [87, 83, 79, 124, 136];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(false, false, false, true);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('90-140%が2回続いたら波型か跳ね小型', () => {
+    const prices = [77, 73, 69, 124, 135];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, true, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('90-140%が3回続いたら波型', () => {
+    const prices = [77, 73, 69, 124, 127, 130];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(true, false, false, false);
+    expect(result).toStrictEqual(expected);
   });
 });
 
