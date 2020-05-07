@@ -3,7 +3,7 @@
     <div class="bought-price__label">
       <span>買い値</span>
     </div>
-    <bell-input :hidden-time="true" :price="price" @onChange="onChange" />
+    <bell-input :hidden-time="true" :price="priceString" @onChange="onChange" />
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
       type: Number,
       required: true,
       default: 0,
+    },
+  },
+  computed: {
+    priceString() {
+      return String(this.price);
     },
   },
   methods: {

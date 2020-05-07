@@ -8,10 +8,10 @@
         <pattern-label :pattern="pattern" class="person-bell__pettern" />
       </div>
       <div class="person-bell__prices">
-        <mini-bell v-for="(price, index) in firstPrices" :key="price" :price="price" :index="index" :current-index="currentIndex" />
+        <mini-bell v-for="(price, index) in firstPrices" :key="price + index" :price="price" :index="index" :current-index="currentIndex" />
       </div>
       <div class="person-bell__prices">
-        <mini-bell v-for="(price, index) in secondPrices" :key="price" :price="price" :index="index + 6" :current-index="currentIndex" />
+        <mini-bell v-for="(price, index) in secondPrices" :key="price + index" :price="price" :index="index + 6" :current-index="currentIndex" />
       </div>
     </div>
   </div>
