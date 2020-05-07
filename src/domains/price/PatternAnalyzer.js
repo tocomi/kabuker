@@ -20,7 +20,101 @@ const doAnalyze = (boughtPrice, prices) => {
   return result;
 };
 
+const BOUNDARY_RATE_140 = 1.4;
+const BOUNDARY_RATE_090 = 0.9;
+const BOUNDARY_RATE_085 = 0.85;
+const BOUNDARY_RATE_080 = 0.8;
+const BOUNDARY_RATE_060 = 0.6;
+
 const withBoughtPrice = (boughtPrice, prices, result) => {
+  const firstResult = judgeFirstPrice(boughtPrice, prices[0], result);
+  const secondResult = judgeMiddleRangeRate(boughtPrice, prices, firstResult);
+  return secondResult;
+};
+
+const judgeFirstPrice = (boughtPrice, firstPrice, result) => {
+  if (boughtPrice === 0) return result;
+
+  if (firstPrice > (boughtPrice * BOUNDARY_RATE_090)) {
+    result[PatternType.DECREASING] = false;
+    result[PatternType.LARGE_SPIKE] = false;
+    return result;
+  }
+
+  if (firstPrice > (boughtPrice * BOUNDARY_RATE_085)) {
+    result[PatternType.RANDOM] = false;
+    return result;
+  }
+
+  if (firstPrice > (boughtPrice * BOUNDARY_RATE_080)) {
+    result[PatternType.RANDOM] = false;
+    result[PatternType.DECREASING] = false;
+    result[PatternType.LARGE_SPIKE] = false;
+    return result;
+  }
+
+  if (firstPrice > (boughtPrice * BOUNDARY_RATE_060)) {
+    result[PatternType.DECREASING] = false;
+    result[PatternType.LARGE_SPIKE] = false;
+    return result;
+  }
+
+  result[PatternType.RANDOM] = false;
+  result[PatternType.DECREASING] = false;
+  result[PatternType.LARGE_SPIKE] = false;
+  return result;
+};
+
+const judgeMiddleRangeRate = (boughtPrice, prices, result) => {
+  let serialCount = 0;
+  for (const index in prices) {
+    const price = prices[index];
+
+    if (price === 0) {
+      serialCount = 0;
+      continue;
+    }
+
+    if (serialCount === 1) {
+      // 1回のあと一定の値を下回ったら波型
+      if (price <= (boughtPrice * BOUNDARY_RATE_080)) {
+        result[PatternType.DECREASING] = false;
+        result[PatternType.SMALL_SPIKE] = false;
+        result[PatternType.LARGE_SPIKE] = false;
+        break;
+      }
+
+      // 1回のあと一定の値を上回ったら跳ね大型
+      if (price > (boughtPrice * BOUNDARY_RATE_140)) {
+        result[PatternType.RANDOM] = false;
+        result[PatternType.DECREASING] = false;
+        result[PatternType.SMALL_SPIKE] = false;
+        break;
+      }
+    }
+
+    if (price > (boughtPrice * BOUNDARY_RATE_090) && price <= (boughtPrice * BOUNDARY_RATE_140)) {
+      serialCount++;
+    } else {
+      serialCount = 0;
+      continue;
+    }
+
+    // 2回続いたら波型か跳ね小型
+    if (serialCount === 2) {
+      result[PatternType.DECREASING] = false;
+      result[PatternType.LARGE_SPIKE] = false;
+      continue;
+    }
+
+    // 3回以上続いたら波型
+    if (serialCount >= 3) {
+      result[PatternType.DECREASING] = false;
+      result[PatternType.SMALL_SPIKE] = false;
+      result[PatternType.LARGE_SPIKE] = false;
+      break;
+    }
+  }
   return result;
 };
 
@@ -78,12 +172,12 @@ const withoutBoughtPrice = (prices, result) => {
   }
 
   // 倍率0.9-1.4の連続回数による判定
-  result = judgeMiddleRange(prices, result);
+  const innerResult = judgeMiddleRangePrice(prices, result);
 
-  return result;
+  return innerResult;
 };
 
-const judgeMiddleRange = (prices, result) => {
+const judgeMiddleRangePrice = (prices, result) => {
   let serialCount = 0;
   for (const index in prices) {
     const price = prices[index];
