@@ -36,7 +36,7 @@ export default {
     background-color: $blue;
     border-radius: 8px;
     display: flex;
-    font-size: 14px;
+    font-size: 12px;
     height: 16px;
     justify-content: center;
     left: 2px;
