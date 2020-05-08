@@ -3,7 +3,7 @@
     <div class="mini-bought-bell__label">
       <span>買</span>
     </div>
-    <input v-model="boughtPrice" readonly class="mini-bought-bell__price">
+    <input :value="price" readonly class="mini-bought-bell__price">
   </div>
 </template>
 
@@ -14,6 +14,12 @@ export default {
       type: Number,
       required: true,
       default: 0,
+    },
+  },
+  computed: {
+    price() {
+      if (this.boughtPrice === 0) return '-';
+      return this.boughtPrice;
     },
   },
 };
