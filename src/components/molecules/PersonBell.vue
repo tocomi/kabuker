@@ -67,8 +67,7 @@ export default {
       return getCurrentTimeIndex();
     },
     pattern() {
-      // TODO: 買値を取得する
-      return doAnalyze(0, this.prices);
+      return doAnalyze(this.boughtPrice, this.prices);
     },
   },
 };

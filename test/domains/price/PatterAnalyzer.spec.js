@@ -68,10 +68,31 @@ describe('買値のベルがある', () => {
     expect(result).toStrictEqual(expected);
   });
 
+  it('90-140%2回の後に140%を超えたら跳ね小型', () => {
+    const prices = [94, 110, 136, 157, 141];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(false, false, true, false);
+    expect(result).toStrictEqual(expected);
+  });
+
   it('90-140%が3回続いたら波型', () => {
     const prices = [77, 73, 69, 124, 127, 130];
     const result = doAnalyze(boughtPrice, prices);
     const expected = makeExpectedResult(true, false, false, false);
+    expect(result).toStrictEqual(expected);
+  });
+
+  // it('140-200%が2回続いたら跳ね小型', () => {
+  //   const prices = [0, 0, 0, 136, 194, 0];
+  //   const result = doAnalyze(boughtPrice, prices);
+  //   const expected = makeExpectedResult(false, false, true, false);
+  //   expect(result).toStrictEqual(expected);
+  // });
+
+  it('最大値が200%を超えたら跳ね大型', () => {
+    const prices = [0, 0, 0, 0, 195, 0];
+    const result = doAnalyze(boughtPrice, prices);
+    const expected = makeExpectedResult(false, false, false, true);
     expect(result).toStrictEqual(expected);
   });
 });

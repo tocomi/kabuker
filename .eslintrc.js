@@ -5,16 +5,17 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    parser: 'babel-eslint'
   },
   extends: [
-    '@nuxtjs',
-    'plugin:nuxt/recommended'
+    'plugin:nuxt/recommended',
+    '@nuxtjs/eslint-config-typescript'
   ],
   // add your custom rules here
   rules: {
     "semi": [ "error", "always" ],
     "comma-dangle": [ "error", "always-multiline" ],
     "no-console": "off",
+    "space-before-function-paren": [ "error", "never" ],
+    "curly": "off",
   }
 }

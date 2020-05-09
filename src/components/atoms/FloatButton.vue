@@ -1,6 +1,6 @@
 <template>
   <div class="button-wrapper">
-    <button @click="click" class="button">
+    <button class="button" @click="click">
       <fa :icon="faSave" size="lg" />
     </button>
   </div>

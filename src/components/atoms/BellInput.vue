@@ -5,11 +5,11 @@
     </div>
     <input
       v-model="inputPrice"
-      @input="onChange"
       class="bell-input__inner"
       type="number"
       min="0"
       max="999"
+      @input="onChange"
     >
     <div class="bell-input__badge">
       <span>ベル</span>
@@ -17,50 +17,44 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    isAm: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    price: {
-      type: String,
-      required: true,
-      default: '',
-    },
-    hiddenTime: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      inputPrice: '',
-    };
-  },
-  computed: {
-    timeText() {
-      if (this.isAm) {
-        return 'AM';
-      }
-      return 'PM';
-    },
-  },
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+
+@Component
+export default class BellInputComponent extends Vue {
+  @Prop({ type: Boolean, required: false, default: true })
+  isAm!: boolean;
+
+  @Prop({ type: String, required: true, default: '' })
+  price!: string;
+
+  @Prop({ type: Boolean, required: false, default: false })
+  hiddenTime!: boolean;
+
+  /* lifecycle */
   created() {
     this.inputPrice = this.price;
-  },
-  methods: {
-    onChange(e) {
-      let value = e.target.value >= 1000 ? 999 : e.target.value;
-      value = value < 0 ? 0 : value;
-      this.inputPrice = value;
-      this.$emit('onChange', value, this.isAm);
-    },
-  },
-};
+  }
+
+  /* data */
+  inputPrice: string = '';
+
+  /* computed */
+  get timeText() {
+    if (this.isAm) {
+      return 'AM';
+    }
+    return 'PM';
+  }
+
+  /* methods */
+  onChange(e: any) {
+    let value = e.target.value >= 1000 ? 999 : e.target.value;
+    value = value < 0 ? 0 : value;
+    this.inputPrice = value;
+    this.$emit('onChange', value, this.isAm);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

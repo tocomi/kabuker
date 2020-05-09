@@ -8,36 +8,28 @@
   </transition>
 </template>
 
-<script>
-export default {
-  props: {
-    isShown: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    message: {
-      type: String,
-      required: true,
-      default: 'だなも！',
-    },
-    level: {
-      type: String,
-      required: true,
-      default: 'INFO',
-    },
-  },
-  computed: {
-    barClass() {
-      if (this.level === 'ERROR') {
-        return 'error';
-      }
-      return 'info';
-    },
-  },
-  methods: {
-  },
-};
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+
+@Component
+export default class SnackbarComponent extends Vue {
+  @Prop({ type: Boolean, required: true, default: false })
+  isShown!: boolean;
+
+  @Prop({ type: String, required: true, default: 'だなも！' })
+  message!: string;
+
+  @Prop({ type: String, required: true, default: 'INFO' })
+  level!: string;
+
+  /* computed */
+  get barClass() {
+    if (this.level === 'ERROR') {
+      return 'error';
+    }
+    return 'info';
+  }
+}
 </script>
 
 <style lang="scss" scoped>
