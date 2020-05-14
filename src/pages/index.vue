@@ -7,13 +7,13 @@
       <simple-loading v-if="loading" />
       <div v-if="!loading" class="main">
         <div class="date">
-          <button @click="previous" v-show="showPrevious" class="date__previous">
+          <button v-show="showPrevious" class="date__previous" @click="previous">
             ←
           </button>
           <div class="term">
             <span class="term__text">{{ displayTerm }}</span>
           </div>
-          <button @click="next" v-show="showNext" class="date__next">
+          <button v-show="showNext" class="date__next" @click="next">
             →
           </button>
         </div>

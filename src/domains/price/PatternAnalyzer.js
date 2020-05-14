@@ -20,20 +20,22 @@ const doAnalyze = (boughtPrice, prices) => {
   return result;
 };
 
-const BOUNDARY_RATE_140 = 1.4;
-const BOUNDARY_RATE_090 = 0.9;
+const BOUNDARY_RATE_200 = 2.00;
+const BOUNDARY_RATE_140 = 1.40;
+const BOUNDARY_RATE_090 = 0.90;
 const BOUNDARY_RATE_085 = 0.85;
-const BOUNDARY_RATE_080 = 0.8;
-const BOUNDARY_RATE_060 = 0.6;
+const BOUNDARY_RATE_080 = 0.80;
+const BOUNDARY_RATE_060 = 0.60;
 
 const withBoughtPrice = (boughtPrice, prices, result) => {
-  const firstResult = judgeFirstPrice(boughtPrice, prices[0], result);
-  const secondResult = judgeMiddleRangeRate(boughtPrice, prices, firstResult);
-  return secondResult;
+  const result01 = judgeFirstPrice(boughtPrice, prices[0], result);
+  const result02 = judgeMiddleRangeRate(boughtPrice, prices, result01);
+  const result03 = judgeMaxPrice(boughtPrice, prices, result02);
+  return result03;
 };
 
 const judgeFirstPrice = (boughtPrice, firstPrice, result) => {
-  if (boughtPrice === 0) return result;
+  if (firstPrice === 0) return result;
 
   if (firstPrice > (boughtPrice * BOUNDARY_RATE_090)) {
     result[PatternType.DECREASING] = false;
@@ -76,7 +78,7 @@ const judgeMiddleRangeRate = (boughtPrice, prices, result) => {
     }
 
     if (serialCount === 1) {
-      // 1回のあと一定の値を下回ったら波型
+      // 1回のあと80%を下回ったら波型
       if (price <= (boughtPrice * BOUNDARY_RATE_080)) {
         result[PatternType.DECREASING] = false;
         result[PatternType.SMALL_SPIKE] = false;
@@ -84,11 +86,21 @@ const judgeMiddleRangeRate = (boughtPrice, prices, result) => {
         break;
       }
 
-      // 1回のあと一定の値を上回ったら跳ね大型
+      // 1回のあと140%を上回ったら跳ね大型
       if (price > (boughtPrice * BOUNDARY_RATE_140)) {
         result[PatternType.RANDOM] = false;
         result[PatternType.DECREASING] = false;
         result[PatternType.SMALL_SPIKE] = false;
+        break;
+      }
+    }
+
+    if (serialCount === 2) {
+      // 2回のあと140%を上回ったら跳ね小型
+      if (price > (boughtPrice * BOUNDARY_RATE_140)) {
+        result[PatternType.RANDOM] = false;
+        result[PatternType.DECREASING] = false;
+        result[PatternType.LARGE_SPIKE] = false;
         break;
       }
     }
@@ -115,6 +127,26 @@ const judgeMiddleRangeRate = (boughtPrice, prices, result) => {
       break;
     }
   }
+  return result;
+};
+
+const judgeMaxPrice = (boughtPrice, prices, result) => {
+  const maxPrice = Math.max(...prices);
+  // 最大値が200%を超える場合は跳ね大型確定
+  if (maxPrice > boughtPrice * BOUNDARY_RATE_200) {
+    result[PatternType.RANDOM] = false;
+    result[PatternType.DECREASING] = false;
+    result[PatternType.SMALL_SPIKE] = false;
+    return result;
+  }
+
+  // 最大値が140%を超える場合は跳ね型確定
+  if (maxPrice > boughtPrice * BOUNDARY_RATE_140) {
+    result[PatternType.RANDOM] = false;
+    result[PatternType.DECREASING] = false;
+    return result;
+  }
+
   return result;
 };
 

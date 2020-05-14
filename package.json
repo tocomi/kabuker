@@ -5,7 +5,7 @@
   "author": "tocomi",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "dev": "nuxt",
     "build": "nuxt build",
@@ -28,7 +28,8 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",
-    "@nuxtjs/eslint-config": "^0.0.1",
+    "@nuxt/typescript-build": "^0.6.6",
+    "@nuxtjs/eslint-config-typescript": "^1.0.2",
     "@nuxtjs/eslint-module": "^0.0.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "^10.0.1",
@@ -46,6 +47,7 @@
     "jest": "^26.0.0",
     "node-sass": "^4.13.1",
     "nodemon": "^1.18.9",
+    "nuxt-property-decorator": "^2.7.2",
     "sass-loader": "^8.0.2"
   },
   "jest": {

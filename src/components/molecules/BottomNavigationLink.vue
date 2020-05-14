@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-navigation-link-wrapper">
-    <div @click="jumpPage" :class="{ selected: selected }" class="bottom-navigation-link">
+    <div :class="{ selected: selected }" class="bottom-navigation-link" @click="jumpPage">
       <fa :icon="icon" size="lg" />
       <span class="bottom-navigation-link__label">{{ label }}</span>
     </div>
