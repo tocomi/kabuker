@@ -29,6 +29,11 @@ export default {
     WeeklyBells,
     BottomNavigation,
   },
+  head() {
+    return {
+      title: 'record',
+    };
+  },
   data() {
     return {
       login: false,

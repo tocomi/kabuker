@@ -45,6 +45,11 @@ export default {
     SimpleLoading,
     BottomNavigation,
   },
+  head() {
+    return {
+      title: 'list',
+    };
+  },
   data() {
     return {
       displayDateList: [],

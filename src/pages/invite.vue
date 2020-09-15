@@ -12,6 +12,11 @@ export default {
   components: {
     BottomNavigation,
   },
+  head() {
+    return {
+      title: 'invitation',
+    };
+  },
 };
 </script>
 
