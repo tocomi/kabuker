@@ -46,6 +46,13 @@ export default {
     'nuxt-webfontloader',
     'nuxt-fontawesome',
     '@nuxtjs/style-resources',
+    [
+      '@nuxtjs/gtm',
+      {
+        id: 'GTM-KCRVBKH',
+        pageTracking: true,
+      },
+    ],
   ],
   /*
   ** Axios module configuration

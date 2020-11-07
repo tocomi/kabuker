@@ -47,6 +47,7 @@ export default {
       if (user) {
         this.login = true;
         this.uid = user.uid;
+        this.$gtm.push({ user_id: this.uid });
       } else {
         this.login = false;
       }

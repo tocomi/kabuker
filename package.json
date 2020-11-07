@@ -19,6 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/gtm": "^2.3.2",
     "@nuxtjs/pwa": "^2.6.0",
     "dayjs": "^1.8.23",
     "firebase": "^7.13.2",
