@@ -45,7 +45,7 @@
     "eslint-plugin-standard": ">=4.0.0",
     "eslint-plugin-vue": "^5.2.2",
     "jest": "^26.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.18.9",
     "nuxt-property-decorator": "^2.7.2",
     "sass-loader": "^8.0.2"
