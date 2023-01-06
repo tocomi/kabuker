@@ -22,7 +22,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "dayjs": "^1.8.23",
     "firebase": "^7.13.2",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "nuxt-fontawesome": "^0.4.0",
     "nuxt-webfontloader": "^1.1.0"
   },
